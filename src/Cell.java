@@ -24,5 +24,5 @@ public class Cell {
         this.alive = alive;
     }
 
-    
+    // Update metode her
 }
