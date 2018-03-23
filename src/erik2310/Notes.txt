@@ -1,0 +1,5 @@
+Hvis cellen er død og har 3 levende naboer, bliver den til en levende celle (birth)
+
+Hvis cellen er levende og har 2 eller 3 levende naboer så er den stadig levende (survival)
+
+Ellers dør den eller er stadig død (overcrowding or loneliness)
