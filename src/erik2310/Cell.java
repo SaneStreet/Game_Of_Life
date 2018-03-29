@@ -7,10 +7,12 @@ public class Cell {
     private boolean alive;
 
     /*
+     **  Værdier til state og hvad de betyder:
      **  1 = birth
      **  2 = survival
      **  3 = overcrowding or loneliness
      */
+
     private byte state;
 
     // Update metode, der sætter alive til true eller false ud fra reglerne
