@@ -1,15 +1,16 @@
 package erik2310;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import org.reactfx.util.FxTimer;
+import org.reactfx.util.Timer;
 
 public class GameOfLifeGUI extends Application {
 
@@ -20,23 +21,43 @@ public class GameOfLifeGUI extends Application {
 
     private static Button button = new Button("Start");
 
+    private static Label label = new Label("0");
+
     @Override
     public void start(Stage primaryStage) {
         game.drawCells();
+
         button.setLayoutX(25);
-        button.setLayoutY(700);
+        button.setLayoutY(703);
+        button.setPrefWidth(100);
+        button.setPrefHeight(40);
         button.setOnAction(new EventHandler<ActionEvent>() {
+
+            Timer timer;
 
             @Override
             public void handle(ActionEvent event) {
-                KeyFrame keyFrame = new KeyFrame(Duration.millis(1000), event1 -> game.buttonAction());
-                Timeline timeline = new Timeline(keyFrame);
-                timeline.setCycleCount(1000);
-                timeline.play();
+                if (button.getText().equals("Stop")) {
+                    timer.stop();
+                    button.setText("Start");
+                } else {
+                    timer = FxTimer.runPeriodically(
+                            java.time.Duration.ofMillis(300),
+                            () -> game.buttonAction());
+                    button.setText("Stop");
+                }
+
             }
         });
         pane.getChildren().add(button);
-        Scene scene = new Scene(pane, 700, 740);
+
+        label.setLayoutX(650);
+        label.setLayoutY(695);
+        Font font = new Font(30);
+        label.setFont(font);
+        pane.getChildren().add(label);
+
+        Scene scene = new Scene(pane, 700, 750);
         primaryStage.setTitle("Game Of Life");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -48,11 +69,18 @@ public class GameOfLifeGUI extends Application {
         launch(args);
     }
 
+    // Gætter til pane
     public static Pane getPane() {
         return pane;
     }
 
+    // Gætter til button
     public static Button getButton() {
         return button;
+    }
+
+    // Gætter til label
+    public static Label getLabel() {
+        return label;
     }
 }

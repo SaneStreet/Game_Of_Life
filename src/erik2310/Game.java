@@ -43,7 +43,7 @@ public class Game {
     }
 
     private Rectangle rectangleBlue, rectangleWhite;
-    ArrayList<Rectangle> rectangles = new ArrayList<>();
+    private ArrayList<Rectangle> rectangles = new ArrayList<>();
 
     // Metode der løber arrayet igennem og tegner cellerne
     public void drawCells() {
@@ -143,12 +143,22 @@ public class Game {
         }
     }
 
+    private int counter = 0;
+
     // Metode til hvad der sker når man trykker på knappen
     public void buttonAction() {
         GameOfLifeGUI.getPane().getChildren().removeAll(rectangles);
 
+        rectangles.clear();
+
         update();
 
         drawCells();
+
+        counter++;
+
+        String counterToString = String.valueOf(counter);
+
+        GameOfLifeGUI.getLabel().setText(counterToString);
     }
 }
